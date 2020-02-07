@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="main.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
 		<script src="script.js"></script>
 	</head>
 	<body>
@@ -9,10 +10,17 @@
 		<div class="container">
 			<table class="row input-group" id="badgeForm">
 				<tr>
-					<td><input type="text" placeholder="Name" class="form-control"></td>
-					<td><input type="text" placeholder="Pronouns" class="form-control"></td>
-					<td><input type="text" placeholder="Course Role Line 1" class="form-control"></td>
-					<td><input type="text" placeholder="Course Role Line 2 (Optional)" class="form-control"></td>
+					<td><input type="text" placeholder="Name" class="badgeField form-control"></td>
+					<td>
+						<input type="text" placeholder="Pronouns" class="badgeField form-control" list="pronounList">
+						<datalist id="pronounList">
+							<option value="He/Him">
+							<option value="She/Her">
+							<option value="They/Them">
+						</datalist>
+					</td>
+					<td><input type="text" placeholder="Course Role Line 1" class="badgeField form-control"></td>
+					<td><input type="text" placeholder="Course Role Line 2 (Optional)" class="badgeField form-control"></td>
 				</tr>
 			</table>
 			<div class="buttongroup">

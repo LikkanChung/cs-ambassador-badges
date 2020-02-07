@@ -34,6 +34,7 @@ function insertRow() {
 }
 
 function downloadPDF() {
+	doc = new jsPDF(); // elemnts get added ontop of the old pdf if multiple are made without a refresh of the page.
 	var table = document.getElementById("badgeForm");
 	var count = table.rows.length;
 

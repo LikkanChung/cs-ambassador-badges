@@ -37,6 +37,7 @@ function downloadPDF() {
 	doc = new jsPDF(); // elemnts get added ontop of the old pdf if multiple are made without a refresh of the page.
 	var table = document.getElementById("badgeForm");
 	var count = table.rows.length;
+	totalBadges = 0;
 
 	//doc.addImage(largePage, 'JPEG', 0, 0, 210, 297);
 
@@ -78,32 +79,67 @@ function addBadge(x, y, name, pronoun, line1, line2) {
 	// offsets in millimetres
 	var fontSizeName = 36;
 	var fontSizePronoun = 16;
-	var fontSizeLine = 18;
+	var fontSizeLine = 16;
+
+	// formatting for empty rows
+	var line2Offset = [0,0,0,0];
+	if (name != "" && pronoun == "" && line1 == "" && line2 == "") {
+		// name only
+		line2Offset[0] = 10;
+	} else if (name != "" && pronoun != "" && line1 == "" && line2 == "") {
+		// name and pronoun
+		line2Offset[0] = 5;
+		line2Offset[1] = 10;
+	} else if ((name != "" && pronoun != "" && line1 != "" && line2 == "") || (name != "" && pronoun != "" && line1 == "" && line2 != "")) {
+		// name and pronoun and either line 1 or line 2 is filled
+		if (line1 == "") {
+			line1 = line2;	
+		} 
+		line2 = "";
+		line2Offset[0] = 2;
+		line2Offset[1] = 4;
+		line2Offset[2] = 6;
+	} else if ((name != "" && pronoun == "" && line1 != "" && line2 == "") || (name != "" && pronoun == "" && line1 == "" && line2 != "")) {
+		// name and either line 1 or line 2 but no pronoun
+		if (line1 == "") {
+			line1 = line2;	
+		} 
+		line2 = "";
+		line2Offset[0] = 3;
+		line2Offset[2] = 0;
+	} else if (pronoun == "") {
+		// no pronoun, but may be name or line 1 or line 2
+		line2Offset[2] = -6;
+		line2Offset[3] = -6;
+	}
+
+	 // else default 4 lines
 
 	doc.setFontSize(fontSizeName);
 	doc.setFontType('bold');
+	var boldWeight = 1.078; // number found through trial and error (1.078)
 	var nameDimensions = doc.getTextDimensions(name);
-	var offsetNameX = (largeWidth / 2) - (getWidthToMM(nameDimensions.w, fontSizeName) / 2);
+	var offsetNameX = (largeWidth / 2) - (boldWeight * (getWidthToMM(nameDimensions.w, fontSizeName)) / 2);
 	var offsetNameY = 28;
-	doc.text(anchorsX[x] + offsetNameX, anchorsY[y] + offsetNameY, name);
+	doc.text(anchorsX[x] + offsetNameX, anchorsY[y] + offsetNameY + line2Offset[0], name);
 	doc.setFontType('normal');
 	
 	doc.setFontSize(fontSizePronoun);
 	var pronounDimensions = doc.getTextDimensions(pronoun);
 	var offsetPronounX = (largeWidth / 2) - (getWidthToMM(pronounDimensions.w, fontSizePronoun) / 2);
 	var offsetPronounY = 37;
-	doc.text(anchorsX[x] + offsetPronounX, anchorsY[y] + offsetPronounY, pronoun);
+	doc.text(anchorsX[x] + offsetPronounX, anchorsY[y] + offsetPronounY + line2Offset[1], pronoun);
 
 	doc.setFontSize(fontSizeLine);
 	var line1Dimensions = doc.getTextDimensions(line1);
 	var offsetLine1X = (largeWidth / 2) - (getWidthToMM(line1Dimensions.w, fontSizeLine) / 2);
 	var offsetLine1Y = 47;
-	doc.text(anchorsX[x] + offsetLine1X, anchorsY[y] + offsetLine1Y, line1);
+	doc.text(anchorsX[x] + offsetLine1X, anchorsY[y] + offsetLine1Y + line2Offset[2], line1);
 	
 	var line2Dimensions = doc.getTextDimensions(line2);
 	var offsetLine2X = (largeWidth / 2) - (getWidthToMM(line2Dimensions.w, fontSizeLine) / 2);
 	var offsetLine2Y = 55;
-	doc.text(anchorsX[x] + offsetLine2X, anchorsY[y] + offsetLine2Y, line2);
+	doc.text(anchorsX[x] + offsetLine2X, anchorsY[y] + offsetLine2Y + line2Offset[3], line2);
 
 	totalBadges++;
 }

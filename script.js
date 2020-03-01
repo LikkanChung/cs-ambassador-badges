@@ -29,8 +29,8 @@ function insertRow() {
 							<option value="She/Her">
 							<option value="They/Them">
 						</datalist>`;
-	line1.innerHTML = '<input type="text" placeholder="Course Role Line 1" class="badgeField form-control">';
-	line2.innerHTML = '<input type="text" placeholder="Course Role Line 2 (Optional)" class="badgeField form-control">';
+	line1.innerHTML = '<input type="text" placeholder="Line 1" class="badgeField form-control">';
+	line2.innerHTML = '<input type="text" placeholder="Line 2" class="badgeField form-control">';
 }
 
 function downloadPDF() {

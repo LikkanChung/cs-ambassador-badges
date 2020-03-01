@@ -20,9 +20,38 @@
 			<p>
 				The badges will look like this:  <img src="example.jpeg" alt="" id="exampleImage">	
 			</p>		
+			<p>
+				Recommdended use:
+			</p>
+			<table class="table table-sm">
+				<tr>
+					<th scope="col">Badge Type</th>
+					<th scope="col">Name Field</th>
+					<th scope="col">Pronouns Field</th>
+					<th scope="col">Line 1</th>
+					<th scope="col">Line 2</th>
+				</tr>
+				<tr>
+					<th scope="row">Ambasador</th>
+					<td>Name</td>
+					<td>Pronouns</td>
+					<td colspan="2">Role Title / Course</td>
+				</tr>
+				<tr>
+					<th scope="row">Applicant</th>
+					<td>First Name</td>
+					<td><em>Leave blank</em></td>
+					<td>"Applicant"</td>
+					<td>"Group A"</td>
+				</tr>
+			</table>
 			
 		</div>
 		<div class="container">
+			<div class="buttongroup">
+				<button class="btn btn-primary" onClick="insertRow()">Add Row</button>
+				<button class="btn btn-primary" onClick="downloadPDF()">Download PDF</button>
+			</div>
 			<table class="row input-group" id="badgeForm">
 				<tr>
 					<td><input type="text" placeholder="Name" class="badgeField form-control"></td>
@@ -34,14 +63,10 @@
 							<option value="They/Them">
 						</datalist>
 					</td>
-					<td><input type="text" placeholder="Course Role Line 1" class="badgeField form-control"></td>
-					<td><input type="text" placeholder="Course Role Line 2 (Optional)" class="badgeField form-control"></td>
+					<td><input type="text" placeholder="Line 1" class="badgeField form-control"></td>
+					<td><input type="text" placeholder="Line 2" class="badgeField form-control"></td>
 				</tr>
 			</table>
-			<div class="buttongroup">
-				<button class="btn btn-primary" onClick="insertRow()">Add Row</button>
-				<button class="btn btn-primary" onClick="downloadPDF()">Download PDF</button>
-			</div>
 		</div>
 	</body>
 

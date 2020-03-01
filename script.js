@@ -13,7 +13,13 @@ var totalBadges = 0;
 var anchorsX = [12.5, 107.5];
 var anchorsY = [15, 80, 145, 210];
 
-function insertRow() {
+function insertRow(field1, field2, field3, field4) {
+	// allows function overloading
+	if(typeof field1 === "undefined") {field1 = ""};
+	if(typeof field2 === "undefined") {field2 = ""};
+	if(typeof field3 === "undefined") {field3 = ""};
+	if(typeof field4 === "undefined") {field4 = ""};
+
 	var table = document.getElementById("badgeForm");
 	var row = table.insertRow(-1);
 
@@ -22,15 +28,15 @@ function insertRow() {
 	var line1 = row.insertCell(2);
 	var line2 = row.insertCell(3);
 
-	name.innerHTML = '<input type="text" placeholder="Name" class="badgeField form-control">';
-	pronoun.innerHTML = `<input type="text" placeholder="Pronouns" class="badgeField form-control" list="pronounList">
+	name.innerHTML = '<input type="text" placeholder="Name" class="badgeField form-control" value="'+ field1 +'">';
+	pronoun.innerHTML = `<input type="text" placeholder="Pronouns" class="badgeField form-control" list="pronounList" value="`+ field2 +`">
 						<datalist id="pronounList">
 							<option value="He/Him">
 							<option value="She/Her">
 							<option value="They/Them">
 						</datalist>`;
-	line1.innerHTML = '<input type="text" placeholder="Line 1" class="badgeField form-control">';
-	line2.innerHTML = '<input type="text" placeholder="Line 2" class="badgeField form-control">';
+	line1.innerHTML = '<input type="text" placeholder="Line 1" class="badgeField form-control" value="'+ field3 +'">';
+	line2.innerHTML = '<input type="text" placeholder="Line 2" class="badgeField form-control" value="'+ field4 +'">';
 }
 
 function downloadPDF() {

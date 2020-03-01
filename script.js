@@ -114,12 +114,17 @@ function addBadge(x, y, name, pronoun, line1, line2) {
 	}
 
 	 // else default 4 lines
-
-	doc.setFontSize(fontSizeName);
-	doc.setFontType('bold');
-	var boldWeight = 1.078; // number found through trial and error (1.078)
-	var nameDimensions = doc.getTextDimensions(name);
-	var offsetNameX = (largeWidth / 2) - (boldWeight * (getWidthToMM(nameDimensions.w, fontSizeName)) / 2);
+	var maxNameWidth = largeWidth - 10;
+	var localFontSizeName = fontSizeName;
+	var fontSizeReduction = 2;
+	do {
+		doc.setFontSize(localFontSizeName);
+		doc.setFontType('bold');
+		var boldWeight = 1.078; // number found through trial and error (1.078)
+		var nameDimensions = doc.getTextDimensions(name);
+		localFontSizeName -= fontSizeReduction;
+	} while (boldWeight * getWidthToMM(nameDimensions.w, localFontSizeName) > maxNameWidth);
+	var offsetNameX = (largeWidth / 2) - (boldWeight * (getWidthToMM(nameDimensions.w, localFontSizeName + fontSizeReduction)) / 2);
 	var offsetNameY = 28;
 	doc.text(anchorsX[x] + offsetNameX, anchorsY[y] + offsetNameY + emptyLineOffset[0], name);
 	doc.setFontType('normal');

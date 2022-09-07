@@ -39,6 +39,16 @@ function insertRow(field1, field2, field3, field4) {
 	line2.innerHTML = '<input type="text" placeholder="Line 2" class="badgeField form-control" value="'+ field4 +'">';
 }
 
+function deleteLastRow() {
+	var table = document.getElementById("badgeForm");
+	table.deleteRow(-1);
+}
+
+function clearTableEntries() {
+	var table = document.getElementById("badgeForm");
+	table.innerHTML = '';
+}
+
 function downloadPDF() {
 	doc = new jsPDF(); // elemnts get added ontop of the old pdf if multiple are made without a refresh of the page.
 	var table = document.getElementById("badgeForm");
@@ -164,4 +174,21 @@ function addBadge(x, y, name, pronoun, line1, line2) {
 
 function getWidthToMM(width, fontSize) {
 	return (width * 25.4) / 72;
+}
+
+async function processCSV(event) {
+	var file = event.target.files.item(0)
+	const csv = await file.text();
+	var lines = csv.split(/\r?\n/);
+	var delimiter = /,\s?/;
+	if (lines.length > 1) {
+		clearTableEntries();
+		if (lines[0].match(/\s?name\s?,\s?pronouns\s?,\s?line1\s?,\s?line2\s?/gmi)) {
+			for (let i = 1; i < lines.length; i++) {
+				insertRow(...lines[i].split(delimiter))
+			}
+		}
+	} else {
+		console.log('No data after header')
+	}
 }

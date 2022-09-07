@@ -15,7 +15,7 @@
 				Badges have 3 elements, a <b>name</b>, <b>preferred pronoun</b>, and a <b>course description</b> which can either be 1 or 2 lines. Sometimes it may be useful to split the course descitpion over 2 lines so it fits inside the badge. The different lines in the badge don't have to be used this way - it's only a suggestion.
 			</p>
 			<p>
-				No data from this webpage is stored at any point.
+				<b>GDPR:</b> No data from this webpage is transferred at any point over the Internet. Personally identifiable information (such as names and pronouns) will be saved as a PDF locally on your computer if you use the template or download the generated PDF.
 			</p>
 			<p>
 				The badges will look like this:  <img src="example.jpeg" alt="" id="exampleImage">	
@@ -23,7 +23,27 @@
 			<p>
 				Recommdended use:
 			</p>
-			<table class="table table-sm">
+			<h2>How to Use:</h2>
+			<h3>Manually creating rows</h3>
+			<ol>
+				<li>Use the table below to fill in Name, Pronouns, Line 1, Line 2 fields as necessary</li>
+				<li>Use the <b>'Add Row'</b> button to create another badge</li>
+				<li>Press <b>'Download PDF'</b> and save the file</li>
+				<li>Print the saved PDF as an A4 document, one sided, without scaling</li>
+			</ol>
+			<h3>Using a CSV template</h3>
+			<p><b>Note:</b> This will clear any entries already in the table.</p>
+			<ol>
+				<li>Press <b>'Download Template'</b> to download the template CSV file</li>
+				<li>Open the file in a text editor or in a program such as Microsoft Excel.</li>
+				<li>Add rows as necessary, but do not edit the header row.</li> 
+				<li>Save the file as a CSV file.<br><b>Note:</b> Do not change the file format if prompted to by Microsoft Excel.</li>
+				<li>Press <b>'Choose File'</b> and select the edited CSV file</li>
+				<li>Make any changes necessary from the populated fields</li>
+				<li>Press <b>'Download PDF'</b> and save the file.</li>
+				<li>Print the saved PDF as an A4 document, one sided, without scaling.</li>
+			</ol>
+			<table class="table table-sm col-10">
 				<tr>
 					<th scope="col">Badge Type</th>
 					<th scope="col">Name Field</th>
@@ -48,11 +68,17 @@
 			
 		</div>
 		<div class="container">
+
 			<div class="buttongroup">
 				<button class="btn btn-primary" onClick="insertRow()">Add Row</button>
 				<button class="btn btn-primary" onClick="downloadPDF()">Download PDF</button>
+				<a href="template_badges.csv" class="btn btn-secondary">Download Template</a>
+				<input type="file" class="btn btn-outline-secondary col-4" id="customFile" accept=".csv" onchange={processCSV(event)} />
+				<button class="btn btn-danger" onClick="deleteLastRow()">Delete Last Row</button>
+				<button class="btn btn-danger" onClick="clearTableEntries()">Clear Table</button>
 			</div>
-			<table class="row input-group" id="badgeForm">
+
+			<table class="input-group" id="badgeForm">
 				<tr>
 					<td><input type="text" placeholder="Name" class="badgeField form-control"></td>
 					<td>
@@ -67,6 +93,7 @@
 					<td><input type="text" placeholder="Line 2" class="badgeField form-control"></td>
 				</tr>
 			</table>
+
 		</div>
 	</body>
 

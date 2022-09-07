@@ -55,7 +55,12 @@ function downloadPDF() {
 	var count = table.rows.length;
 	totalBadges = 0;
 
-	//doc.addImage(largePage, 'JPEG', 0, 0, 210, 297);
+	// Header info
+	doc.setFontSize(16);
+	var headerText = "For best results, print at actual/default size, single sided, without scaling"
+	var offsetX = 15;
+	var offsetY = 15;
+	doc.text(offsetX, offsetY, headerText);
 
 	var i;
 	for (i = 0; i < count; i++) {
@@ -73,13 +78,6 @@ function downloadPDF() {
 
 		addBadge((i%2), (Math.floor((i%8)/2)), name, pronoun, line1, line2);
 	}
-	
-	// Header info
-	doc.setFontSize(16);
-	var headerText = "For best results, print at actual/default size, without scaling"
-	var offsetX = 15;
-	var offsetY = 15;
-	doc.text(offsetX, offsetY, headerText);
 
 	doc.save('badges.pdf');
 
